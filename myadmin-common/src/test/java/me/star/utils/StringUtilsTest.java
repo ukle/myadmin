@@ -1,3 +1,18 @@
+package me.star.utils;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static me.star.utils.StringUtils.getIp;
+import static me.star.utils.StringUtils.getWeekDay;
+import static me.star.utils.StringUtils.toCamelCase;
+import static me.star.utils.StringUtils.toCapitalizeCamelCase;
+import static me.star.utils.StringUtils.toUnderScoreCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class StringUtilsTest {
 

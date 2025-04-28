@@ -1,3 +1,18 @@
+package me.star.utils;
+
+import org.junit.jupiter.api.Test;
+
+import static me.star.utils.EncryptUtils.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class EncryptUtilsTest {
+
+    /**
+     * 对称加密
+     */
+    @Test
+    public void testDesEncrypt() {
+        try {
             assertEquals("7772841DC6099402", desEncrypt("123456"));
         } catch (Exception e) {
             e.printStackTrace();

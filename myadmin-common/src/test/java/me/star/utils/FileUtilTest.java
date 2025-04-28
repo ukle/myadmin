@@ -1,3 +1,18 @@
+package me.star.utils;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
+
+import static me.star.utils.FileUtil.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class FileUtilTest {
+
+    @Test
+    public void testToFile() {
+        long retval = toFile(new MockMultipartFile("foo", (byte[]) null)).getTotalSpace();
+        assertEquals(500695072768L, retval);
+    }
 
     @Test
     public void testGetExtensionName() {

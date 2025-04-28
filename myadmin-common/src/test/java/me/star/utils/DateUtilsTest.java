@@ -1,3 +1,18 @@
+package me.star.utils;
+
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+public class DateUtilsTest {
+    @Test
+    public void test1() {
+        long l = System.currentTimeMillis() / 1000;
+        LocalDateTime localDateTime = DateUtil.fromTimeStamp(l);
+        System.out.print(DateUtil.localDateTimeFormatyMdHms(localDateTime));
+    }
+
     @Test
     public void test2() {
         LocalDateTime now = LocalDateTime.now();
