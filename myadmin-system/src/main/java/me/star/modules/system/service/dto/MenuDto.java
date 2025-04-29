@@ -1,95 +1,51 @@
 package me.star.modules.system.service.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import me.star.base.BaseDTO;
-import java.io.Serializable;
+import me.star.base.BaseData;
+import me.star.base.BaseEntity;
+import me.star.modules.system.domain.Menu;
+
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * @author Zheng Jie
+ * @author star chou
  * @date 2018-12-17
  */
 @Getter
 @Setter
-public class MenuDto extends BaseDTO implements Serializable {
+public class MenuDto implements BaseData {
 
-    @ApiModelProperty(value = "ID")
+    @NotNull(groups = {BaseEntity.Update.class})
     private Long id;
 
-    @ApiModelProperty(value = "子节点")
-    private List<MenuDto> children;
-
-    @ApiModelProperty(value = "类型")
-    private Integer type;
-
-    @ApiModelProperty(value = "权限")
-    private String permission;
-
-    @ApiModelProperty(value = "菜单标题")
+    private Long parentId;
     private String title;
-
-    @ApiModelProperty(value = "排序")
-    private Integer menuSort;
-
-    @ApiModelProperty(value = "路径")
-    private String path;
-
-    @ApiModelProperty(value = "组件")
-    private String component;
-
-    @ApiModelProperty(value = "PID")
-    private Long pid;
-
-    @ApiModelProperty(value = "子节点数目")
-    private Integer subCount;
-
-    @ApiModelProperty(value = "是否为Iframe")
-    private Boolean iFrame;
-
-    @ApiModelProperty(value = "是否缓存")
-    private Boolean cache;
-
-    @ApiModelProperty(value = "是否隐藏")
-    private Boolean hidden;
-
-    @ApiModelProperty(value = "组件名称")
-    private String componentName;
-
-    @ApiModelProperty(value = "图标")
+    private List<Long> roleId;
+    private Integer orderNum;
     private String icon;
+    private Integer routerType;
+    private String component;
+    private String redirect;
+    private String path;
+    private String url;
+    private String target;
+    private Boolean affix;
+    private Boolean keepAlive;
+    private Boolean hideInMenu;
+    private Boolean isDisable;
 
-    @ApiModelProperty(value = "是否存在子节点")
-    public Boolean getHasChildren() {
-        return subCount > 0;
-    }
-
-    @ApiModelProperty(value = "是否叶子节点")
-    public Boolean getLeaf() {
-        return subCount <= 0;
-    }
-
-    @ApiModelProperty(value = "标题")
-    public String getLabel() {
-        return title;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MenuDto menuDto = (MenuDto) o;
-        return Objects.equals(id, menuDto.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void mergeToEntity(Menu menu) {
+        menu.setTitle(this.getTitle());
+        menu.setComponent(this.getComponent());
+        menu.setPath(this.getPath());
+        menu.setIcon(this.getIcon());
+        menu.setParentId(this.getParentId());
+        menu.setOrderNum(this.getOrderNum());
+        menu.setHideInMenu(this.getHideInMenu());
+//        menu.setComponentName(this.getComponentName());
+//        menu.setPermission(this.getPermission());
+//        menu.setType(this.getType());
     }
 }

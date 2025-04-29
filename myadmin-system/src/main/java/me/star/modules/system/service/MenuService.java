@@ -1,12 +1,9 @@
 package me.star.modules.system.service;
 
 import me.star.modules.system.domain.Menu;
-import me.star.modules.system.domain.vo.MenuVo;
 import me.star.modules.system.service.dto.MenuDto;
 import me.star.modules.system.service.dto.MenuQueryCriteria;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -34,15 +31,15 @@ public interface MenuService {
 
     /**
      * 创建
-     * @param resources /
+     * @param menuDto /
      */
-    void create(Menu resources);
+    void create(MenuDto menuDto);
 
     /**
      * 编辑
      * @param resources /
      */
-    void update(Menu resources);
+    void update(MenuDto resources);
 
     /**
      * 获取所有子节点，包含自身ID
@@ -51,20 +48,6 @@ public interface MenuService {
      * @return /
      */
     Set<Menu> getChildMenus(List<Menu> menuList, Set<Menu> menuSet);
-
-    /**
-     * 构建菜单树
-     * @param menuDtos 原始数据
-     * @return /
-     */
-    List<MenuDto> buildTree(List<MenuDto> menuDtos);
-
-    /**
-     * 构建菜单树
-     * @param menuDtos /
-     * @return /
-     */
-    List<MenuVo> buildMenus(List<MenuDto> menuDtos);
 
     /**
      * 根据ID查询
@@ -80,14 +63,6 @@ public interface MenuService {
     void delete(Set<Menu> menuSet);
 
     /**
-     * 导出
-     * @param queryAll 待导出的数据
-     * @param response /
-     * @throws IOException /
-     */
-    void download(List<MenuDto> queryAll, HttpServletResponse response) throws IOException;
-
-    /**
      * 懒加载菜单数据
      * @param pid /
      * @return /
@@ -95,17 +70,9 @@ public interface MenuService {
     List<MenuDto> getMenus(Long pid);
 
     /**
-     * 根据ID获取同级与上级数据
-     * @param menuDto /
-     * @param objects /
-     * @return /
-     */
-    List<MenuDto> getSuperior(MenuDto menuDto, List<Menu> objects);
-
-    /**
      * 根据当前用户获取菜单
      * @param currentUserId /
      * @return /
      */
-    List<MenuDto> findByUser(Long currentUserId);
+    List<Menu> findByUser(Long currentUserId);
 }
