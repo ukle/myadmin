@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import me.star.domain.vo.EmailVo;
 import me.star.service.EmailService;
 import me.star.modules.system.service.VerifyService;
-import me.star.utils.enums.CodeBiEnum;
-import me.star.utils.enums.CodeEnum;
+import me.star.constant.enums.CodeBiEnum;
+import me.star.constant.enums.CodeEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class VerifyController {
     @PostMapping(value = "/resetEmail")
     @ApiOperation("重置邮箱，发送验证码")
     public ResponseEntity<Object> resetEmail(@RequestParam String email){
-        EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey());
+        EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_EMAIL_CODE.getCode());
         emailService.send(emailVo,emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -37,7 +37,7 @@ public class VerifyController {
     @PostMapping(value = "/email/resetPass")
     @ApiOperation("重置密码，发送验证码")
     public ResponseEntity<Object> resetPass(@RequestParam String email){
-        EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_PWD_CODE.getKey());
+        EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_PWD_CODE.getCode());
         emailService.send(emailVo,emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -48,10 +48,10 @@ public class VerifyController {
         CodeBiEnum biEnum = CodeBiEnum.find(codeBi);
         switch (Objects.requireNonNull(biEnum)){
             case ONE:
-                verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + email ,code);
+                verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getCode() + email ,code);
                 break;
             case TWO:
-                verificationCodeService.validated(CodeEnum.EMAIL_RESET_PWD_CODE.getKey() + email ,code);
+                verificationCodeService.validated(CodeEnum.EMAIL_RESET_PWD_CODE.getCode() + email ,code);
                 break;
             default:
                 break;

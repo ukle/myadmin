@@ -1,7 +1,7 @@
 package me.star.utils;
 
 import me.star.annotation.rest.AnonymousAccess;
-import me.star.utils.enums.RequestMethodEnum;
+import me.star.constant.enums.RequestMethodEnum;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;

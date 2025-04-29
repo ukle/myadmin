@@ -15,7 +15,7 @@ import me.star.utils.*;
 import me.star.modules.system.repository.DeptRepository;
 import me.star.modules.system.service.DeptService;
 import me.star.modules.system.service.mapstruct.DeptMapper;
-import me.star.utils.enums.DataScopeEnum;
+import me.star.constant.enums.DataScopeEnum;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

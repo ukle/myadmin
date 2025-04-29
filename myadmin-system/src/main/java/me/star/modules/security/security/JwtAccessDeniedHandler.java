@@ -1,7 +1,7 @@
 package me.star.modules.security.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.star.exception.handler.ApiError;
+import me.star.handler.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

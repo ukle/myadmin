@@ -1,4 +1,4 @@
-package me.star.exception.handler;
+package me.star.handler;
 
 import lombok.Data;
 

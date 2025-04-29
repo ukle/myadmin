@@ -10,7 +10,7 @@ import me.star.modules.system.service.dto.RoleSmallDto;
 import me.star.modules.system.service.dto.UserDto;
 import me.star.utils.CacheKey;
 import me.star.utils.RedisUtils;
-import me.star.utils.enums.DataScopeEnum;
+import me.star.constant.enums.DataScopeEnum;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.concurrent.TimeUnit;

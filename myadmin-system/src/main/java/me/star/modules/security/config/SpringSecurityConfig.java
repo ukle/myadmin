@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.star.modules.security.security.*;
 import me.star.modules.security.service.OnlineUserService;
 import me.star.utils.AnonTagUtils;
-import me.star.utils.enums.RequestMethodEnum;
+import me.star.constant.enums.RequestMethodEnum;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

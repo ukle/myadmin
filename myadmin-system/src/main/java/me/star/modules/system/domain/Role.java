@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import me.star.base.BaseEntity;
-import me.star.utils.enums.DataScopeEnum;
+import me.star.constant.enums.DataScopeEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

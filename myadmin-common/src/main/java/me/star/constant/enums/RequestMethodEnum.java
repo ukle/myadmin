@@ -1,4 +1,4 @@
-package me.star.utils.enums;
+package me.star.constant.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

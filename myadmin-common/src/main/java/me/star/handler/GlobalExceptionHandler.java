@@ -1,4 +1,4 @@
-package me.star.exception.handler;
+package me.star.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import me.star.exception.BadRequestException;

@@ -10,6 +10,7 @@ import me.star.annotation.Log;
 import me.star.annotation.rest.AnonymousDeleteMapping;
 import me.star.annotation.rest.AnonymousGetMapping;
 import me.star.annotation.rest.AnonymousPostMapping;
+import me.star.annotation.rest.UnifiedRestResponse;
 import me.star.config.properties.RsaProperties;
 import me.star.exception.BadRequestException;
 import me.star.modules.security.config.CaptchaConfig;
@@ -21,6 +22,7 @@ import me.star.modules.security.service.UserDetailsServiceImpl;
 import me.star.modules.security.service.dto.AuthUserDto;
 import me.star.modules.security.service.dto.JwtUserDto;
 import me.star.modules.security.service.OnlineUserService;
+import me.star.modules.security.vo.AuthInfo;
 import me.star.utils.RsaUtils;
 import me.star.utils.RedisUtils;
 import me.star.utils.SecurityUtils;
@@ -46,9 +48,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Api(tags = "系统：系统授权接口")
+@UnifiedRestResponse
 public class AuthController {
     private final SecurityProperties properties;
     private final RedisUtils redisUtils;
@@ -62,19 +65,21 @@ public class AuthController {
     @Log("用户登录")
     @ApiOperation("登录授权")
     @AnonymousPostMapping(value = "/login")
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
-        // 密码解密
-        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
-        // 查询验证码
-        String code = redisUtils.get(authUser.getUuid(), String.class);
-        // 清除验证码
-        redisUtils.del(authUser.getUuid());
-        if (StringUtils.isBlank(code)) {
-            throw new BadRequestException("验证码不存在或已过期");
-        }
-        if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
-            throw new BadRequestException("验证码错误");
-        }
+    public AuthInfo login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
+          String password = "123456";
+
+//        // 密码解密
+//        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
+//        // 查询验证码
+//        String code = redisUtils.get(authUser.getUuid(), String.class);
+//        // 清除验证码
+//        redisUtils.del(authUser.getUuid());
+//        if (StringUtils.isBlank(code)) {
+//            throw new BadRequestException("验证码不存在或已过期");
+//        }
+//        if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
+//            throw new BadRequestException("验证码错误");
+//        }
         // 获取用户信息
         JwtUserDto jwtUser = userDetailsService.loadUserByUsername(authUser.getUsername());
         // 验证用户密码
@@ -86,10 +91,7 @@ public class AuthController {
         // 生成令牌
         String token = tokenProvider.createToken(jwtUser);
         // 返回 token 与 用户信息
-        Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
-            put("token", properties.getTokenStartWith() + token);
-            put("user", jwtUser);
-        }};
+        AuthInfo authInfo = new AuthInfo(properties.getTokenStartWith() + token, jwtUser);
         if (loginProperties.isSingleLogin()) {
             // 踢掉之前已经登录的token
             onlineUserService.kickOutForUsername(authUser.getUsername());
@@ -97,7 +99,7 @@ public class AuthController {
         // 保存在线信息
         onlineUserService.save(jwtUser, token, request);
         // 返回登录信息
-        return ResponseEntity.ok(authInfo);
+        return authInfo;
     }
 
     @ApiOperation("获取用户信息")

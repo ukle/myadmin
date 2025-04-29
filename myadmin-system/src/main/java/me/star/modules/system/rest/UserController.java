@@ -20,7 +20,7 @@ import me.star.modules.system.service.dto.UserQueryCriteria;
 import me.star.modules.system.service.VerifyService;
 import me.star.utils.*;
 import me.star.modules.system.service.UserService;
-import me.star.utils.enums.CodeEnum;
+import me.star.constant.enums.CodeEnum;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -176,7 +176,7 @@ public class UserController {
         if(!passwordEncoder.matches(password, userDto.getPassword())){
             throw new BadRequestException("密码错误");
         }
-        verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + user.getEmail(), code);
+        verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getCode() + user.getEmail(), code);
         userService.updateEmail(userDto.getUsername(),user.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
